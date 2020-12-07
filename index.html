@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>打开app</title>
+</head>
+
+<body>
+</body>
+<script src="jquery-1.8.3.min.js"></script>
+<script>
+  //苹果打开app的链接(由苹果开发提供)
+  var url_ios = 'https://intelligentmarketing.m2.com.cn/intelligentMarketing/';  
+  //安卓打开app的链接(由安卓开发提供)
+  var url_android = 'zhyx://mywebsite.com/openApp';
+  var url_android_download = 'https://www.baidu.com/';
+
+  var u = navigator.userAgent;
+  //android终端
+  var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; 
+  //ios终端
+  var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); 
+
+  if (isiOS) {
+    location.href = url_ios;
+  } else {
+    location.href = url_android;
+    var loadTime = new Date();
+    // 如果打开超时说明是没有安装，则跳到下载的地址
+    setTimeout(function () {
+      var outTime = new Date()
+      if (outTime - loadTime > 800) {
+        location.href = url_android_download;
+      }
+    }, 1000)
+  }
+
+</script>
+
+</html>
+
+
+<!-- <html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="Refresh" content="0;url=myapp://mywebsite.com/openApp？name=zhangsan&age=20" />
+    <meta http-equiv="Refresh" content="0;url=zhyx://host:8080/path？name=zhangsan&age=20" />
+    <title>测试重定向</title>
+  </head>
+  <body>
+    <h1>测试打开智慧营销app</h1>
+    <a href='zhyx://host:8080/path'>点击打开APP</a>
+    <script>
+      // var app = 'https://intelligentmarketing.m2.com.cn/intelligentMarketing/'
+      // var app = 'zhyx://host:8080/path'
+      // var app = 'myapp://mywebsite.com/openApp'
+      // var app = 'https://zd.badmask.com'
+      var app = 'zhyx://host:8080/path'
+      // var url = location.href
+      // app = url.replace(url.slice(0, 5) === 'https' ? 'https' : 'http', 'app')
+      location.href = app
+      // window.open("zhyx://host:8080/path");   
+    </script>
+  </body>
+</html> -->
